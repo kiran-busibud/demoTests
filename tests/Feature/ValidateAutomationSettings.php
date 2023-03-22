@@ -67,16 +67,14 @@ class ValidateAutomationSettings extends TestCase
             $this->questions->Q5 => "return offer",
             $this->questions->Q6 => "reason if all return types are not available",
             $this->questions->Q7 => "yes",
-            $this->questions->Q8 => "yes",
-            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q8 => "a",
             $this->questions->Q10 => "yes",
             $this->questions->Q11 => "a",
             $this->questions->Q12 => "message displayed to customer",
             $this->questions->Q13 => "yes",
         ];
-        $response = $this->post('/automation_settings', [
-            'data' => 'invalid json',
-        ]);
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
+
 
         $response
             ->assertStatus(201)
@@ -100,14 +98,14 @@ class ValidateAutomationSettings extends TestCase
             $this->questions->Q5 => "return offer",
             $this->questions->Q6 => "reason if all return types are not available",
             $this->questions->Q7 => "yes",
-            $this->questions->Q8 => "yes",
-            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q8 => "a",
             $this->questions->Q10 => "yes",
             $this->questions->Q11 => "a",
             $this->questions->Q12 => "message displayed to customer",
             $this->questions->Q13 => "yes",
         ];
-        $response = $this->postJson('/api/user', $automation_settings);
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
+
 
         $response
             ->assertStatus(201)
@@ -130,14 +128,13 @@ class ValidateAutomationSettings extends TestCase
             $this->questions->Q5 => "return offer",
             $this->questions->Q6 => "reason if all return types are not available",
             $this->questions->Q7 => "yes",
-            $this->questions->Q8 => "yes",
-            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q8 => "a",
             $this->questions->Q10 => "yes",
             $this->questions->Q11 => "a",
             $this->questions->Q12 => "message displayed to customer",
             $this->questions->Q13 => "yes",
         ];
-        $response = $this->postJson('/api/user', $automation_settings);
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
 
         $response
             ->assertStatus(422);
@@ -157,14 +154,14 @@ class ValidateAutomationSettings extends TestCase
             $this->questions->Q5 => "return offer",
             $this->questions->Q6 => "reason if all return types are not available",
             $this->questions->Q7 => "yes",
-            $this->questions->Q8 => "yes",
-            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q8 => "a",
             $this->questions->Q10 => "yes",
             $this->questions->Q11 => "a",
             $this->questions->Q12 => "message displayed to customer",
             $this->questions->Q13 => "yes",
         ];
-        $response = $this->postJson('/api/user', $automation_settings);
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
+
 
         $response
             ->assertStatus(201)
@@ -183,14 +180,13 @@ class ValidateAutomationSettings extends TestCase
             $this->questions->Q5 => "return offer",
             $this->questions->Q6 => "reason if all return types are not available",
             $this->questions->Q7 => "yes",
-            $this->questions->Q8 => "yes",
-            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q8 => "a",
             $this->questions->Q10 => "yes",
             $this->questions->Q11 => "a",
             $this->questions->Q12 => "message displayed to customer",
             $this->questions->Q13 => "yes",
         ];
-        $response = $this->postJson('/api/user', $automation_settings);
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
 
         $response
             ->assertStatus(422);
@@ -208,14 +204,13 @@ class ValidateAutomationSettings extends TestCase
             $this->questions->Q6 => "reason if all return types are not available",
             $this->questions->Q7 => "no",
             $this->configs->config4 => $this->valid_configs->config4,
-            $this->questions->Q8 => "yes",
-            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q8 => "a",
             $this->questions->Q10 => "yes",
             $this->questions->Q11 => "a",
             $this->questions->Q12 => "message displayed to customer",
             $this->questions->Q13 => "yes",
         ];
-        $response = $this->postJson('/api/user', $automation_settings);
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
 
         $response
             ->assertStatus(201)
@@ -234,14 +229,165 @@ class ValidateAutomationSettings extends TestCase
             $this->questions->Q5 => "return offer",
             $this->questions->Q6 => "reason if all return types are not available",
             $this->questions->Q7 => "no",
-            $this->questions->Q8 => "yes",
+            $this->questions->Q8 => "a",
+            $this->questions->Q10 => "yes",
+            $this->questions->Q11 => "a",
+            $this->questions->Q12 => "message displayed to customer",
+            $this->questions->Q13 => "yes",
+        ];
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
+
+
+        $response
+            ->assertStatus(422);
+    }
+
+    public function test_making_a_valid_post_request_with_Question_nine()
+    {
+        $automation_settings = [
+            $this->questions->Q1 => "yes",
+            $this->questions->Q2 => "reason",
+            $this->questions->Q3 => "yes",
+            $this->questions->Q4 => "yes",
+            $this->configs->config => $this->valid_configs->config3,
+            $this->questions->Q5 => "return offer",
+            $this->questions->Q6 => "reason if all return types are not available",
+            $this->questions->Q7 => "no",
+            $this->questions->Q8 => "b",
             $this->questions->Q9 => "list of reasons",
             $this->questions->Q10 => "yes",
             $this->questions->Q11 => "a",
             $this->questions->Q12 => "message displayed to customer",
             $this->questions->Q13 => "yes",
         ];
-        $response = $this->postJson('/api/user', $automation_settings);
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
+
+        $response
+            ->assertStatus(201)
+            ->assertJsonFragment([
+                'created' => true,
+            ]);
+    }
+
+    public function test_making_a_invalid_post_request_with_Question_nine()
+    {
+        $automation_settings = [
+            $this->questions->Q1 => "yes",
+            $this->questions->Q2 => "reason",
+            $this->questions->Q3 => "yes",
+            $this->questions->Q4 => "yes",
+            $this->configs->config => $this->valid_configs->config3,
+            $this->questions->Q5 => "return offer",
+            $this->questions->Q6 => "reason if all return types are not available",
+            $this->questions->Q7 => "no",
+            $this->questions->Q8 => "a",
+            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q10 => "yes",
+            $this->questions->Q11 => "a",
+            $this->questions->Q12 => "message displayed to customer",
+            $this->questions->Q13 => "yes",
+        ];
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
+
+        $response
+            ->assertStatus(422);
+    }
+
+    public function test_making_a_valid_post_request_with_config5()
+    {
+        $automation_settings = [
+            $this->questions->Q1 => "yes",
+            $this->questions->Q2 => "reason",
+            $this->questions->Q3 => "yes",
+            $this->questions->Q4 => "yes",
+            $this->questions->Q5 => "return offer",
+            $this->questions->Q6 => "reason if all return types are not available",
+            $this->questions->Q7 => "yes",
+            $this->questions->Q8 => "b",
+            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q10 => "no",
+            $this->configs->config5 => $this->valid_configs->config5,
+            $this->questions->Q11 => "a",
+            $this->questions->Q12 => "message displayed to customer",
+            $this->questions->Q13 => "yes",
+        ];
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
+
+        $response
+            ->assertStatus(201)
+            ->assertJsonFragment([
+                'created' => true,
+            ]);
+    }
+
+    public function test_making_an_invalid_post_request_without_config5()
+    {
+        $automation_settings = [
+            $this->questions->Q1 => "yes",
+            $this->questions->Q2 => "reason",
+            $this->questions->Q3 => "yes",
+            $this->questions->Q4 => "yes",
+            $this->questions->Q5 => "return offer",
+            $this->questions->Q6 => "reason if all return types are not available",
+            $this->questions->Q7 => "yes",
+            $this->questions->Q8 => "b",
+            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q10 => "no",
+            $this->questions->Q11 => "a",
+            $this->questions->Q12 => "message displayed to customer",
+            $this->questions->Q13 => "yes",
+        ];
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
+
+        $response
+            ->assertStatus(422);
+    }
+
+    public function test_making_a_valid_post_request_with_config6()
+    {
+        $automation_settings = [
+            $this->questions->Q1 => "yes",
+            $this->questions->Q2 => "reason",
+            $this->questions->Q3 => "yes",
+            $this->questions->Q4 => "yes",
+            $this->questions->Q5 => "return offer",
+            $this->questions->Q6 => "reason if all return types are not available",
+            $this->questions->Q7 => "yes",
+            $this->questions->Q8 => "c",
+            $this->configs->config6 => $this->valid_configs->config6,
+            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q10 => "no",
+            $this->questions->Q11 => "a",
+            $this->questions->Q12 => "message displayed to customer",
+            $this->questions->Q13 => "yes",
+        ];
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
+
+        $response
+            ->assertStatus(201)
+            ->assertJsonFragment([
+                'created' => true,
+            ]);
+    }
+
+    public function test_making_a_valid_post_request_without_config6()
+    {
+        $automation_settings = [
+            $this->questions->Q1 => "yes",
+            $this->questions->Q2 => "reason",
+            $this->questions->Q3 => "yes",
+            $this->questions->Q4 => "yes",
+            $this->questions->Q5 => "return offer",
+            $this->questions->Q6 => "reason if all return types are not available",
+            $this->questions->Q7 => "yes",
+            $this->questions->Q8 => "c",
+            $this->questions->Q9 => "list of reasons",
+            $this->questions->Q10 => "no",
+            $this->questions->Q11 => "a",
+            $this->questions->Q12 => "message displayed to customer",
+            $this->questions->Q13 => "yes",
+        ];
+        $response = $this->postJson('/refund_automation_settings', $automation_settings);
 
         $response
             ->assertStatus(422);
