@@ -8,7 +8,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Mockery as m;
+use Mockery;
 
 class unitTestsWithMocking extends TestCase
 {
@@ -27,12 +27,13 @@ class unitTestsWithMocking extends TestCase
     public function testGetUserById()
     {
 
-        $user = m::mock(User::class);
+        $user = Mockery::mock(User::class);
         $user->shouldReceive('findOrFail')
             ->once()
             ->andReturn($user);
 
-        $userRepository = m::mock(UserRepository::class);
+        $userRepository = Mockery::mock(UserRepository::class);
+
         $userRepository->shouldReceive('getUserById')
             ->once()
             ->with(1)
