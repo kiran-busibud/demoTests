@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Services\UserService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Mockery;
 
@@ -28,19 +29,32 @@ class unitTestsWithMocking extends TestCase
     {
 
         $user = Mockery::mock(User::class);
+        $user1 = new User($userData = ['name' => 'kiran', 'email' => 'kiran']);
         $user->shouldReceive('findOrFail')
             ->once()
-            ->andReturn($user);
+            ->with(202)
+            ->andReturn($user1);
 
-        $userRepository = Mockery::mock(UserRepository::class);
+        $userRepository = new UserRepository($user);
 
-        $userRepository->shouldReceive('getUserById')
-            ->once()
-            ->with(1)
-            ->andReturn($user);
+        $result = $userRepository->getUserById(202);
 
-        $result = $userRepository->getUserById(1);
-
-        $this->assertEquals($user, $result);
+        $this->assertEquals($user1->name, $result->name);
     }
+
+    public function testCreateUser()
+    {
+        $userRepository = $this->createMock(UserRepository::class);
+        
+        $userData = ['name' => 'kiran', 'email' => 'kiran'];
+        $user = new User($userData);
+        $userRepository->expects($this->once())
+            ->method('create')
+            ->with($user);
+            
+        $userService = new UserService($userRepository);
+        
+        $userService->createUser($userData);
+    }
+
 }
